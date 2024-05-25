@@ -1,0 +1,85 @@
+﻿@model List<CartVM>
+@{
+    ViewData["Title"] = "Index";
+
+    
+   
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="container mt-5 w-100 ml-5">
+    @if (Model == null || Model.Count == 0)
+    {
+        <h1>Cart is Empty</h1>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Count</th>
+                        <th>Price</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><img src="~/img/@item.Image" style="width:80px;height:80px" /></td>
+                            <td>@item.Name</td>
+                            <td>
+
+                                <div class="input-group plus-minus-input">
+                                    <div class="input-group-button">
+                                        <button type="button" class="btn btn-light btn-minus" data-quantity="minus" data-field="quantity" data-id="@item.Id" style="padding:5px 5px;">
+                                            <i class="fa fa-minus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <span class="product-count" style="font-size:18px;margin:5px;">@item.Count</span>
+                                    <div class="input-group-button">
+                                        <button type="button" class="btn btn-light btn-plus " data-quantity="plus" data-field="quantity" data-id="@item.Id" style="padding:5px 5px;">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </td>
+                            <td class="product-price">@item.Price</td>
+                            <td>
+                                <div class="btns">
+                                    <form class="forms-sample d-inline" method="post" asp-action="Delete" asp-route-id="@item.Id"> <button class="btn btn-danger danger ">Delete</button></form>
+                                   @*  <button class="btn btn-danger delete-basket " data-id="@item.Id">Delete</button> *@
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="total-price">
+            <div class="box" style="width:200px;height:80px; background-color:red;text-align:center;padding:auto;color:white;">
+                <h6 style="padding-top:10px;">Total Price:</h6>
+                <p>
+                    @foreach (var item in Model)
+                    {
+                        <span class="basket-total-price">@item.BasketTotalPrice</span>
+                        return;
+                    }
+                </p>
+            </div>
+        </div>
+    }
+   
+</div>
+
